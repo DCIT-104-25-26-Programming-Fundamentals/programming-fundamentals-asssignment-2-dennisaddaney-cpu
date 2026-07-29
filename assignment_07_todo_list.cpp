@@ -75,8 +75,56 @@
 // YOUR CODE BELOW — remove the // symbols from the scaffold and fill it in
 // =============================================================================
 
+
 #include <iostream>
 #include <vector>
 #include <string>
 using namespace std;
 
+// Add a task to the list
+void addTask(vector<string>& tasks) {
+    cin.ignore(); // clear leftover newline from previous input
+    string task;
+    cout << "Enter task: ";
+    getline(cin, task);
+    tasks.push_back(task);
+    cout << "Task added: \"" << task << "\"\n";
+}
+
+// View all tasks in the list
+void viewTasks(const vector<string>& tasks) {
+    if (tasks.empty()) {
+        cout << "Your task list is empty.\n";
+        return;
+    }
+    cout << "Your Tasks:\n";
+    for (size_t i = 0; i < tasks.size(); i++) {
+        cout << (i + 1) << ". " << tasks[i] << "\n";
+    }
+}
+
+// Delete a task by number
+void deleteTask(vector<string>& tasks) {
+    if (tasks.empty()) {
+        cout << "Your task list is empty. Nothing to delete.\n";
+        return;
+    }
+
+    viewTasks(tasks);
+    cout << "Enter task number to delete: ";
+    int num;
+    cin >> num;
+
+    if (num < 1 || num > static_cast<int>(tasks.size())) {
+        cout << "Error: Invalid task number.\n";
+        return;
+    }
+
+    string removed = tasks[num - 1];
+    tasks.erase(tasks.begin() + (num - 1));
+    cout << "Task \"" << removed << "\" has been removed.\n";
+}
+
+// Display the menu
+void showMenu() {
+    cout <<

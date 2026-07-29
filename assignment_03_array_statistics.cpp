@@ -39,6 +39,82 @@
 // YOUR CODE BELOW — remove the // symbols from the scaffold and fill it in
 // =============================================================================
 
+
+
+
+
 #include <iostream>
+#include <vector>
 using namespace std;
 
+// Function to calculate the sum of numbers in a vector
+double calculateSum(const vector<double>& arr) {
+    double sum = 0.0;
+    for (double num : arr) {
+        sum += num;
+    }
+    return sum;
+}
+
+// Function to calculate the average of numbers in a vector
+double calculateAverage(const vector<double>& arr) {
+    if (arr.empty()) {
+        return 0.0;
+    }
+    return calculateSum(arr) / arr.size();
+}
+
+// Function to find the maximum number in a vector
+double findMaximum(const vector<double>& arr) {
+    if (arr.empty()) {
+        return 0.0;
+    }
+    double maxVal = arr[0];
+    for (size_t i = 1; i < arr.size(); ++i) {
+        if (arr[i] > maxVal) {
+            maxVal = arr[i];
+        }
+    }
+    return maxVal;
+}
+
+// Function to find the minimum number in a vector
+double findMinimum(const vector<double>& arr) {
+    if (arr.empty()) {
+        return 0.0;
+    }
+    double minVal = arr[0];
+    for (size_t i = 1; i < arr.size(); ++i) {
+        if (arr[i] < minVal) {
+            minVal = arr[i];
+        }
+    }
+    return minVal;
+}
+
+int main() {
+    int n;
+    cout << "How many numbers? ";
+    cin >> n;
+
+    if (n <= 0) {
+        cout << "Error: N must be a positive integer." << endl;
+        return 1;
+    }
+
+    vector<double> numbers(n);
+    for (int i = 0; i < n; ++i) {
+        cout << "Enter number " << i + 1 << ": ";
+        cin >> numbers[i];
+    }
+
+    cout << endl << "Results:" << endl;
+    cout.precision(1);
+    cout << fixed;
+    cout << "Sum:     " << calculateSum(numbers) << endl;
+    cout << "Average: " << calculateAverage(numbers) << endl;
+    cout << "Maximum: " << findMaximum(numbers) << endl;
+    cout << "Minimum: " << findMinimum(numbers) << endl;
+
+    return 0;
+}

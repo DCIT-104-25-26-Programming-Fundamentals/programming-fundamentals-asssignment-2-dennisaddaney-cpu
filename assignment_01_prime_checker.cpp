@@ -34,6 +34,43 @@
 // YOUR CODE BELOW — remove the // symbols from the scaffold and fill it in
 // =============================================================================
 
-#include <iostream>
-using namespace std;
 
+#include <iostream>
+#include <cmath> // Required for sqrt function
+
+// Function to check if a number is prime
+bool isPrime(int n) {
+    // Numbers less than 2 are not prime
+    if (n < 2) {
+        return false;
+    }
+    // 2 is the only even prime number
+    if (n == 2) {
+        return true;
+    }
+    // If n is even and greater than 2, it's not prime
+    if (n % 2 == 0) {
+        return false;
+    }
+    // Check for divisibility from 3 up to sqrt(n), skipping even numbers
+    for (int i = 3; i <= sqrt(n); i += 2) {
+        if (n % i == 0) {
+            return false;
+        }
+    }
+    return true;
+}
+
+int main() {
+    int num;
+    std::cout << "Enter a number: ";
+    std::cin >> num;
+
+    if (isPrime(num)) {
+        std::cout << num << " is a prime number.\n";
+    } else {
+        std::cout << num << " is NOT a prime number.\n";
+    }
+
+    return 0;
+}

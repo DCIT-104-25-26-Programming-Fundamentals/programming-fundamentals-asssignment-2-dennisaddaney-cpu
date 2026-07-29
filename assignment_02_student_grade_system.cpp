@@ -43,6 +43,65 @@
 // YOUR CODE BELOW — remove the // symbols from the scaffold and fill it in
 // =============================================================================
 
-#include <iostream>
-using namespace std;
 
+// Function to determine the letter grade based on score
+
+
+#include <iostream>
+
+// Function to determine the letter grade based on score
+char getGrade(int score) {
+    // Validate the score
+    if (score < 0 || score > 100) {
+        return '\0'; // Return null character for invalid score
+    }
+
+    // Determine the grade using if / else if / else
+    if (score >= 80) {
+        return 'A';
+    } else if (score >= 70) {
+        return 'B';
+    } else if (score >= 60) {
+        return 'C';
+    } else if (score >= 50) {
+        return 'D';
+    } else {
+        return 'F';
+    }
+}
+
+int main() {
+    int score;
+    std::cout << "Enter student score (0-100): ";
+    std::cin >> score;
+
+    char grade = getGrade(score);
+
+    if (grade == '\0') {
+        std::cout << "Error: Score must be between 0 and 100.\n";
+    } else {
+        std::cout << "Grade: " << grade << "\n";
+    }
+
+    return 0;
+}
+
+# Test with a score for Grade A (e.g., 85)
+print('Testing with score 85:')
+!echo 85 | ./grade_system
+
+# Test with a score for Grade B (e.g., 73)
+print('\nTesting with score 73:')
+!echo 73 | ./grade_system
+
+# Test with a score for Grade F (e.g., 45)
+print('\nTesting with score 45:')
+!echo 45 | ./grade_system
+
+# Test with an invalid score (e.g., 110)
+print('\nTesting with score 110 (invalid):')
+!echo 110 | ./grade_system
+
+# Test with another invalid score (e.g., -5)
+print('\nTesting with score -5 (invalid):')
+!echo -5 | ./grade_system

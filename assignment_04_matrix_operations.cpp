@@ -65,3 +65,155 @@
 #include <string>
 using namespace std;
 
+const int MAX_SIZE = 10; // Fixed maximum size for array dimensions
+
+// Function to print a matrix
+void printMatrix(const int matrix[MAX_SIZE][MAX_SIZE], int rows, int cols) {
+    for (int i = 0; i < rows; ++i) {
+        for (int j = 0; j < cols; ++j) {
+            cout << setw(4) << matrix[i][j]; // setw(4) for alignment
+        }
+        cout << endl;
+    }
+}
+
+// Function to read a matrix from the user
+void readMatrix(int matrix[MAX_SIZE][MAX_SIZE], int& rows, int& cols, const string& matrixName) {
+    cout << "Enter number of rows for " << matrixName << ": ";
+    cin >> rows;
+    cout << "Enter number of columns for " << matrixName << ": ";
+    cin >> cols;
+
+    if (rows <= 0 || rows > MAX_SIZE || cols <= 0 || cols > MAX_SIZE) {
+        cout << "Error: Dimensions must be positive and not exceed " << MAX_SIZE << ".\n";
+        exit(1); // Exit if dimensions are invalid
+    }
+
+    cout << "Enter elements for " << matrixName << ":\n";
+    for (int i = 0; i < rows; ++i) {
+        for (int j = 0; j < cols; ++j) {
+            cout << "Enter element [" << i << "][" << j << "]: ";
+            cin >> matrix[i][j];
+        }
+    }
+}
+
+// PART A: Transpose a Matrix
+void transposeMatrix() {
+    int matrix[MAX_SIZE][MAX_SIZE];
+    int rows, cols;
+
+    readMatrix(matrix, rows, cols, "Original Matrix");
+
+    cout << "\nOriginal Matrix:\n";
+    printMatrix(matrix, rows, cols);
+
+    cout << "\nTransposed Matrix:\n";
+    // Transposed matrix will have cols x rows dimensions
+    for (int j = 0; j < cols; ++j) {
+        for (int i = 0; i < rows; ++i) {
+            cout << setw(4) << matrix[i][j];
+        }
+        cout << endl;
+    }
+}
+
+// PART B: Add Two Matrices
+void addMatrices() {
+    int matrixA[MAX_SIZE][MAX_SIZE];
+    int rowsA, colsA;
+    readMatrix(matrixA, rowsA, colsA, "Matrix A");
+
+    int matrixB[MAX_SIZE][MAX_SIZE];
+    int rowsB, colsB;
+    readMatrix(matrixB, rowsB, colsB, "Matrix B");
+
+    if (rowsA != rowsB || colsA != colsB) {
+        cout << "Error: Matrices must have the same dimensions for addition.\n";
+        return;
+    }
+
+    int resultMatrix[MAX_SIZE][MAX_SIZE];
+    for (int i = 0; i < rowsA; ++i) {
+        for (int j = 0; j < colsA; ++j) {
+            resultMatrix[i][j] = matrixA[i][j] + matrixB[i][j];
+        }
+    }
+
+    cout << "\nMatrix A:\n";
+    printMatrix(matrixA, rowsA, colsA);
+    cout << "\nMatrix B:\n";
+    printMatrix(matrixB, rowsB, colsB);
+    cout << "\nSum Matrix (A + B):\n";
+    printMatrix(resultMatrix, rowsA, colsA);
+}
+
+// PART C: Multiply Two Matrices
+void multiplyMatrices() {
+    int matrixA[MAX_SIZE][MAX_SIZE];
+    int rowsA, colsA;
+    readMatrix(matrixA, rowsA, colsA, "Matrix A");
+
+    int matrixB[MAX_SIZE][MAX_SIZE];
+    int rowsB, colsB;
+    readMatrix(matrixB, rowsB, colsB, "Matrix B");
+
+    if (colsA != rowsB) {
+        cout << "Error: Number of columns in Matrix A must equal number of rows in Matrix B for multiplication.\n";
+        return;
+    }
+
+    int resultRows = rowsA;
+    int resultCols = colsB;
+    int resultMatrix[MAX_SIZE][MAX_SIZE] = {0}; // Initialize with zeros
+
+    // Perform multiplication
+    for (int i = 0; i < rowsA; ++i) {
+        for (int j = 0; j < colsB; ++j) {
+            for (int k = 0; k < colsA; ++k) { // or rowsB, as they are equal
+                resultMatrix[i][j] += matrixA[i][k] * matrixB[k][j];
+            }
+        }
+    }
+
+    cout << "\nMatrix A:\n";
+    printMatrix(matrixA, rowsA, colsA);
+    cout << "\nMatrix B:\n";
+    printMatrix(matrixB, rowsB, colsB);
+    cout << "\nProduct Matrix (A x B):\n";
+    printMatrix(resultMatrix, resultRows, resultCols);
+}
+
+int main() {
+    int choice;
+    do {
+        cout << "\n--- Matrix Operations Menu ---\n";
+        cout << "1. Transpose a Matrix\n";
+        cout << "2. Add Two Matrices\n";
+        cout << "3. Multiply Two Matrices\n";
+        cout << "4. Exit\n";
+        cout << "Enter your choice: ";
+        cin >> choice;
+
+        switch (choice) {
+            case 1:
+                transposeMatrix();
+                break;
+            case 2:
+                addMatrices();
+                break;
+            case 3:
+                multiplyMatrices();
+                break;
+            case 4:
+                cout << "Exiting program. Goodbye!\n";
+                break;
+            default:
+                cout << "Invalid choice. Please try again.\n";
+        }
+    } while (choice != 4);
+
+    return 0;
+}
+
+

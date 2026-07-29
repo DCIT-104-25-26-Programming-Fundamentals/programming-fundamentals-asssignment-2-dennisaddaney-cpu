@@ -73,3 +73,115 @@
 #include <cmath>
 using namespace std;
 
+
+double add(double a, double b) {
+    return a + b;
+}
+
+double subtract(double a, double b) {
+    return a - b;
+}
+
+double multiply(double a, double b) {
+    return a * b;
+}
+
+// Returns true on success, false if b is zero (division by zero)
+bool divide(double a, double b, double& result) {
+    if (b == 0) {
+        return false;
+    }
+    result = a / b;
+    return true;
+}
+
+// Returns true on success, false if b is zero (modulus by zero)
+bool modulus(int a, int b, int& result) {
+    if (b == 0) {
+        return false;
+    }
+    result = a % b;
+    return true;
+}
+
+double exponentiate(double base, double exponent) {
+    return pow(base, exponent);
+}
+
+void showMenu() {
+    cout << "\n============================\n";
+    cout << "     SIMPLE CALCULATOR\n";
+    cout << "============================\n";
+    cout << "1. Addition\n";
+    cout << "2. Subtraction\n";
+    cout << "3. Multiplication\n";
+    cout << "4. Division\n";
+    cout << "5. Modulus\n";
+    cout << "6. Exponentiation\n";
+    cout << "7. Quit\n";
+    cout << "Select an operation (1-7): ";
+}
+
+int main() {
+    int choice;
+    bool running = true;
+
+    cout << fixed << setprecision(2);
+
+    while (running) {
+        showMenu();
+        cin >> choice;
+
+        if (choice == 7) {
+            cout << "Goodbye!\n";
+            running = false;
+            continue;
+        }
+
+        if (choice < 1 || choice > 7) {
+            cout << "Error: Invalid choice. Please enter 1-7.\n";
+            continue;
+        }
+
+        double a, b;
+        cout << "Enter first number : ";
+        cin >> a;
+        cout << "Enter second number: ";
+        cin >> b;
+
+        switch (choice) {
+            case 1:
+                cout << "Result: " << a << " + " << b << " = " << add(a, b) << "\n";
+                break;
+            case 2:
+                cout << "Result: " << a << " - " << b << " = " << subtract(a, b) << "\n";
+                break;
+            case 3:
+                cout << "Result: " << a << " * " << b << " = " << multiply(a, b) << "\n";
+                break;
+            case 4: {
+                double result;
+                if (divide(a, b, result)) {
+                    cout << "Result: " << a << " / " << b << " = " << result << "\n";
+                } else {
+                    cout << "Error: Cannot divide by zero.\n";
+                }
+                break;
+            }
+            case 5: {
+                int result;
+                if (modulus(static_cast<int>(a), static_cast<int>(b), result)) {
+                    cout << "Result: " << static_cast<int>(a) << " % " << static_cast<int>(b) << " = " << result << "\n";
+                } else {
+                    cout << "Error: Cannot perform modulus by zero.\n";
+                }
+                break;
+            }
+            case 6:
+                cout << "Result: " << a << " ^ " << b << " = " << exponentiate(a, b) << "\n";
+                break;
+        }
+    }
+
+    return 0;
+}
